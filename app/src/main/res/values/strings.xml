@@ -3,4 +3,5 @@
     <string name="add_task">add</string>
     <string name="enter_your_task">enter your task\n</string>
     <string name="save_task">save task</string>
+    <string name="task">Task</string>
 </resources>

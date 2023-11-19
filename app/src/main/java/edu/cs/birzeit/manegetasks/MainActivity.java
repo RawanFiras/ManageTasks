@@ -35,16 +35,13 @@ public class MainActivity extends AppCompatActivity {
         ListView taskListView = findViewById(R.id.taskListView);
         Button addButton = findViewById(R.id.addButton);
 
-        // Load tasks from SharedPreferences
         loadTasksFromSharedPreferences();
 
-        // Initialize the adapter
+
         adapter = new ArrayAdapter<>(this, R.layout.list_item_task, R.id.taskTextView, taskList);
 
-        // Set the adapter to the ListView
         taskListView.setAdapter(adapter);
 
-        // Set click listener for the "Add" button
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -54,32 +51,25 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        // Set item click listener for the ListView items
+
         taskListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                // Handle checkbox click to remove the task
                 CheckBox checkBox = view.findViewById(R.id.taskCheckBox);
 
-                // Update the task status when the checkbox is clicked
+
                 checkBox.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         // If the checkbox is checked, remove the task from the list
                         if (checkBox.isChecked()) {
-                            // Remove the task from the list
                             taskList.remove(position);
-
-                            // Notify the adapter that the data set has changed
                             adapter.notifyDataSetChanged();
-
-                            // Save tasks to SharedPreferences
                             saveTasksToSharedPreferences();
                         }
                     }
                 });
 
-                // Set the initial state of the checkbox based on the task status
                 checkBox.setChecked(!checkBox.isChecked());
             }
         });
@@ -89,20 +79,14 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        // Check if the request is from AddTaskActivity
+
         if (requestCode == 1 && resultCode == RESULT_OK) {
-            // Get the new task from AddTaskActivity
+
             String newTask = data.getStringExtra("newTask");
 
-            // Check if the task is not empty
             if (newTask != null && !newTask.isEmpty()) {
-                // Add the new task to the list
                 taskList.add(newTask);
-
-                // Notify the adapter that the data set has changed
                 adapter.notifyDataSetChanged();
-
-                // Save tasks to SharedPreferences
                 saveTasksToSharedPreferences();
             }
         }

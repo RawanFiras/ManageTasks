@@ -28,7 +28,6 @@ public class AddTaskActivity extends AppCompatActivity {
                 resultIntent.putExtra("newTask", newTask);
                 setResult(RESULT_OK, resultIntent);
 
-                // Finish the activity
                 finish();
             }
         });
